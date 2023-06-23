@@ -46,7 +46,18 @@ function App() {
                 </button>
               </th>
               <th className="w-40 border p-2">
-                <button className="cursor-pointer w-full h-full">
+                <button
+                  className="cursor-pointer w-full h-full"
+                  onClick={() => {
+                    if (state.name == "") {
+                      dispatch({ type: "SORT_NAME", payload: "nameLow" });
+                    } else if (state.name == "nameHigh") {
+                      dispatch({ type: "SORT_NAME", payload: "nameLow" });
+                    } else if (state.name == "nameLow") {
+                      dispatch({ type: "SORT_NAME", payload: "nameHigh" });
+                    }
+                  }}
+                >
                   Product Name
                 </button>
               </th>

@@ -11,6 +11,7 @@ const InitialData = {
   calories: "",
   type: "",
   id: "",
+  name: "",
 };
 
 const simpleString = (str) => {
@@ -60,6 +61,13 @@ const DataReducer = (state, action) => {
         type: "SORT_ID",
       };
     }
+    case "SORT_NAME": {
+      return {
+        ...state,
+        name: action.payload,
+        type: "SORT_NAME",
+      };
+    }
   }
 };
 
@@ -102,6 +110,13 @@ const DataProvider = ({ children }) => {
       ? [...state.snackList].sort((a, b) => {
           return state.id == "idLow" ? a.id - b.id : b.id - a.id;
         })
+      : sortedData;
+  } else if (state.type === "SORT_NAME") {
+    console.log(state.name);
+    sortedData = state.name
+      ? state.name === "nameLow"
+        ? [...state.snackList].sort()
+        : [...state.snackList].sort().reverse()
       : sortedData;
   }
 
