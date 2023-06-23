@@ -32,7 +32,6 @@ function App() {
                 <button
                   className="cursor-pointer w-full h-full"
                   onClick={() => {
-                    // console.log(state.price);
                     if (state.id == "") {
                       dispatch({ type: "SORT_ID", payload: "idLow" });
                     } else if (state.id == "idHigh") {
@@ -65,7 +64,6 @@ function App() {
                 <button
                   className="cursor-pointer w-full h-full"
                   onClick={() => {
-                    // console.log(state.price);
                     if (state.weight == "") {
                       dispatch({ type: "SORT_WEIGHT", payload: "weightLow" });
                     } else if (state.weight == "weightHigh") {
@@ -82,7 +80,6 @@ function App() {
                 <button
                   className="cursor-pointer w-full h-full"
                   onClick={() => {
-                    // console.log(state.price);
                     if (state.price == "") {
                       dispatch({ type: "SORT_PRICE", payload: "priceLow" });
                     } else if (state.price == "priceHigh") {
@@ -123,7 +120,24 @@ function App() {
               <th className="w-100 border p-2">
                 <button
                   className="cursor-pointer w-full h-full"
-                  onClick={() => dispatch({ type: "SORT_ID", payload: "" })}
+                  onClick={() => {
+                    if (state.ingredients == "") {
+                      dispatch({
+                        type: "SORT_INGREDIENTS",
+                        payload: "ingredientsLow",
+                      });
+                    } else if (state.ingredients == "ingredientsHigh") {
+                      dispatch({
+                        type: "SORT_INGREDIENTS",
+                        payload: "ingredientsLow",
+                      });
+                    } else if (state.ingredients == "ingredientsLow") {
+                      dispatch({
+                        type: "SORT_INGREDIENTS",
+                        payload: "ingredientsHigh",
+                      });
+                    }
+                  }}
                 >
                   Ingredients
                 </button>
@@ -131,7 +145,6 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {console.log(sortedData)}
             {sortedData.map((currentRow) => {
               return (
                 <tr key={currentRow.id} className="border">

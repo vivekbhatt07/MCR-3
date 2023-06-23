@@ -12,6 +12,7 @@ const InitialData = {
   type: "",
   id: "",
   name: "",
+  ingredients: "",
 };
 
 const simpleString = (str) => {
@@ -68,18 +69,23 @@ const DataReducer = (state, action) => {
         type: "SORT_NAME",
       };
     }
+    case "SORT_INGREDIENTS": {
+      return {
+        ...state,
+        ingredients: action.payload,
+        type: "SORT_INGREDIENTS",
+      };
+    }
   }
 };
 
 const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(DataReducer, InitialData);
-  console.log(state.type);
 
   let sortedData = [...state.snackList];
   if (state.type === "SORT_PRICE") {
     sortedData = state.price
       ? [...state.snackList].sort((a, b) => {
-          console.log(a.price, b.price);
           return state.price == "priceLow"
             ? a.price - b.price
             : b.price - a.price;
@@ -94,10 +100,8 @@ const DataProvider = ({ children }) => {
         })
       : sortedData;
   } else if (state.type === "SORT_WEIGHT") {
-    console.log(state.weight);
     sortedData = state.weight
       ? [...state.snackList].sort((a, b) => {
-          // console.log(a, b);
           return state.weight === "weightLow"
             ? parseInt(a.product_weight.slice(0, -1)) -
                 parseInt(b.product_weight.slice(0, -1))
@@ -112,11 +116,51 @@ const DataProvider = ({ children }) => {
         })
       : sortedData;
   } else if (state.type === "SORT_NAME") {
-    console.log(state.name);
     sortedData = state.name
       ? state.name === "nameLow"
-        ? [...state.snackList].sort()
-        : [...state.snackList].sort().reverse()
+        ? [...state.snackList].sort((a, b) => {
+            if (a.product_name > b.product_name) {
+              return -1;
+            } else if (a.product_name < b.product_name) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })
+        : [...state.snackList].sort((a, b) => {
+            if (a.product_name > b.product_name) {
+              return 1;
+            } else if (a.product_name < b.product_name) {
+              return -1;
+            } else {
+              return 0;
+            }
+          })
+      : sortedData;
+  } else if (state.type === "SORT_INGREDIENTS") {
+    const newArr = sortedData.map((current) => {
+      return { ...current, ingredients: current.ingredients.join(",") };
+    });
+    sortedData = state.ingredients
+      ? state.ingredients === "ingredientsLow"
+        ? [...state.snackList].sort((a, b) => {
+            if (a.ingredients > b.ingredients) {
+              return -1;
+            } else if (a.ingredients < b.ingredients) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })
+        : [...state.snackList].sort((a, b) => {
+            if (a.ingredients > b.ingredients) {
+              return 1;
+            } else if (a.ingredients < b.ingredients) {
+              return -1;
+            } else {
+              return 0;
+            }
+          })
       : sortedData;
   }
 
