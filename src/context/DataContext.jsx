@@ -26,8 +26,13 @@ const DataReducer = (state, action) => {
         ...state,
         snackList: action.payload
           ? state.snackList.filter((current) => {
-              return simpleString(current.product_name).includes(
-                simpleString(action.payload)
+              return (
+                simpleString(current.product_name).includes(
+                  simpleString(action.payload)
+                ) ||
+                simpleString(current.ingredients.join(" ")).includes(
+                  simpleString(action.payload)
+                )
               );
             })
           : [...snacks],

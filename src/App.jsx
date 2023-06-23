@@ -9,7 +9,7 @@ function App() {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <div className="mx-auto flex flex-col gap-4">
+    <div className="mx-auto flex flex-col gap-4 p-6">
       <h1 className="text-4xl">Snack Table</h1>
       <div>
         <input
