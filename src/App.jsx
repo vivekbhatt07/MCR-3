@@ -44,7 +44,16 @@ function App() {
               <th className="w-40 border p-2">
                 <button
                   className="cursor-pointer w-full h-full"
-                  onClick={() => dispatch({ type: "SORT_WEIGHT", payload: "" })}
+                  onClick={() => {
+                    // console.log(state.price);
+                    if (state.weight == "") {
+                      dispatch({ type: "SORT_WEIGHT", payload: "weightLow" });
+                    } else if (state.weight == "weightHigh") {
+                      dispatch({ type: "SORT_WEIGHT", payload: "weightLow" });
+                    } else if (state.weight == "weightLow") {
+                      dispatch({ type: "SORT_WEIGHT", payload: "weightHigh" });
+                    }
+                  }}
                 >
                   Product Weight
                 </button>
@@ -102,6 +111,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
+            {console.log(sortedData)}
             {sortedData.map((currentRow) => {
               return (
                 <tr key={currentRow.id} className="border">

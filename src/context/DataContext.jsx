@@ -45,12 +45,19 @@ const DataReducer = (state, action) => {
         type: "SORT_CALORIES",
       };
     }
+    case "SORT_WEIGHT": {
+      return {
+        ...state,
+        weight: action.payload,
+        type: "SORT_WEIGHT",
+      };
+    }
   }
 };
 
 const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(DataReducer, InitialData);
-  // console.log(state.price);
+  console.log(state.type);
 
   let sortedData = [...state.snackList];
   if (state.type === "SORT_PRICE") {
@@ -61,7 +68,7 @@ const DataProvider = ({ children }) => {
             ? a.price - b.price
             : b.price - a.price;
         })
-      : state.snackList;
+      : sortedData;
   } else if (state.type === "SORT_CALORIES") {
     sortedData = state.calories
       ? [...state.snackList].sort((a, b) => {
@@ -69,7 +76,19 @@ const DataProvider = ({ children }) => {
             ? a.calories - b.calories
             : b.calories - a.calories;
         })
-      : sortPrice;
+      : sortedData;
+  } else if (state.type === "SORT_WEIGHT") {
+    console.log(state.weight);
+    sortedData = state.weight
+      ? [...state.snackList].sort((a, b) => {
+          // console.log(a, b);
+          return state.weight === "weightLow"
+            ? parseInt(a.product_weight.slice(0, -1)) -
+                parseInt(b.product_weight.slice(0, -1))
+            : parseInt(b.product_weight.slice(0, -1)) -
+                parseInt(a.product_weight.slice(0, -1));
+        })
+      : sortedData;
   }
 
   return (
