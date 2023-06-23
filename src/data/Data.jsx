@@ -25,7 +25,7 @@ export const snacks = [
     product_name: "Veggie Chips",
     product_weight: "28g",
     price: 279,
-    calories: 130,
+    calories: 300,
     ingredients: ["Sweet Potatoes", "Beets", "Kale", "Sea Salt"],
   },
   {
