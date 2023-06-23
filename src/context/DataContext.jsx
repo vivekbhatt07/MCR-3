@@ -10,6 +10,7 @@ const InitialData = {
   price: "",
   calories: "",
   type: "",
+  id: "",
 };
 
 const simpleString = (str) => {
@@ -52,6 +53,13 @@ const DataReducer = (state, action) => {
         type: "SORT_WEIGHT",
       };
     }
+    case "SORT_ID": {
+      return {
+        ...state,
+        id: action.payload,
+        type: "SORT_ID",
+      };
+    }
   }
 };
 
@@ -87,6 +95,12 @@ const DataProvider = ({ children }) => {
                 parseInt(b.product_weight.slice(0, -1))
             : parseInt(b.product_weight.slice(0, -1)) -
                 parseInt(a.product_weight.slice(0, -1));
+        })
+      : sortedData;
+  } else if (state.type === "SORT_ID") {
+    sortedData = state.id
+      ? [...state.snackList].sort((a, b) => {
+          return state.id == "idLow" ? a.id - b.id : b.id - a.id;
         })
       : sortedData;
   }

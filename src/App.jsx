@@ -31,7 +31,16 @@ function App() {
               <th className="w-40 border p-2">
                 <button
                   className="cursor-pointer w-full h-full"
-                  onClick={() => dispatch({ type: "SORT_ID", payload: "" })}
+                  onClick={() => {
+                    // console.log(state.price);
+                    if (state.id == "") {
+                      dispatch({ type: "SORT_ID", payload: "idLow" });
+                    } else if (state.id == "idHigh") {
+                      dispatch({ type: "SORT_ID", payload: "idLow" });
+                    } else if (state.id == "idLow") {
+                      dispatch({ type: "SORT_ID", payload: "idHigh" });
+                    }
+                  }}
                 >
                   Id
                 </button>
